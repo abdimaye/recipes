@@ -77,8 +77,14 @@ class RecipeController extends Controller
 
         $fields = array_keys($request->all());
 
-        return response()->json([
-            $recipe->select($fields)->get()
-        ], 200);
+        // We will ignore any fields that are not mass assignable / don't exist
+        $columns = array_intersect($fields, $recipe->getFillable());
+
+        if (count($columns) == 0) return [];
+
+        return response()->json(
+            $recipe->select($columns)->first(), 
+            200
+        );
     }
 }

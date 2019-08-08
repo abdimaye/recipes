@@ -4,7 +4,7 @@ use App\Recipe;
 use Laravel\Lumen\Testing\DatabaseMigrations;
 use Laravel\Lumen\Testing\DatabaseTransactions;
 
-class FilterTest extends TestCase
+class FilterRecipesTest extends TestCase
 {
 
     use DatabaseMigrations;
