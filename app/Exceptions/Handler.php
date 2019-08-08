@@ -8,6 +8,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Laravel\Lumen\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -46,7 +47,9 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
         // Let's return a json response
-        if ($exception instanceof ModelNotFoundException) {
+        if ( $exception instanceof ModelNotFoundException
+            || $exception instanceof NotFoundHttpException
+            ) {
             return response()->json([
                 'error' => 'Resource not found'
             ], 404);
