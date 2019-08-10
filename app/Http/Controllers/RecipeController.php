@@ -23,7 +23,7 @@ class RecipeController extends Controller
 
         $results = $recipe->filter($params)->paginate(10);
 
-        if ( count($results->items() > 10) ) {
+        if ( $results->total() > 10 ) {
             return response()->json($results, 206);
         }
 

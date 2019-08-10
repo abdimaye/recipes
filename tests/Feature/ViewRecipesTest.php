@@ -57,4 +57,16 @@ class ViewRecipesTest extends TestCase
             'error' => 'Resource not found'
         ]); 
     }
+
+    /** @test */
+    public function it_returns_200_when_retreiving_less_than_10_items()
+    {
+        factory(Recipe::class, 9)->create();
+
+        $response = $this->call('GET', '/api/v1/recipes');
+        
+        $content = json_decode($response->getContent());
+
+        $this->assertEquals(200, $response->status());  
+    }
 }
